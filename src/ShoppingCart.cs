@@ -43,7 +43,7 @@ namespace Supermarket
                 {
                     var offer = offers[p];
                     var unitPrice = catalog.GetUnitPrice(p);
-                    DisC discount = null;
+                    DisC? discount = null;
                     var x = 1;
                     if (offer.OfferType == SpecialOfferType.ThreeForTwo)
                     {

@@ -7,8 +7,8 @@ namespace Supermarket.Test
     {
         private Product _apple;
         private Product _toothbrush;
-        private double _toothbrushPrice = 0.99;
-        private double _applesPrice = 1.99;
+        private readonly double _toothbrushPrice = 0.99;
+        private readonly double _applesPrice = 1.99;
         private String _expectedReceipt = "";
 
         [SetUp]
@@ -32,17 +32,17 @@ namespace Supermarket.Test
             var catalog = new Mock<ISupermarketCatalog>();
             catalog.Setup(x => x.GetUnitPrice(_apple)).Returns(_applesPrice);
             catalog.Setup(x => x.GetUnitPrice(_toothbrush)).Returns(_toothbrushPrice);
-            var cart = createShoppingCart();
-            var teller = createTeller(catalog.Object);
+            var cart = CreateShoppingCart();
+            var teller = CreateTeller(catalog.Object);
             var receipt = teller.ChecksOutArticlesFrom(cart);
 
-            ReceiptPrinter printer = new ReceiptPrinter();
+            var printer = new ReceiptPrinter();
             var printed = printer.PrintReceipt(receipt);
 
-            Assert.AreEqual(_expectedReceipt, printed);
+            Assert.That(_expectedReceipt, Is.EqualTo(printed));
         }
 
-        private ShoppingCart createShoppingCart()
+        private ShoppingCart CreateShoppingCart()
         {
             var cart = new ShoppingCart();
 
@@ -52,7 +52,7 @@ namespace Supermarket.Test
             return cart;
         }
 
-        private Teller createTeller(ISupermarketCatalog catalog)
+        private Teller CreateTeller(ISupermarketCatalog catalog)
         {
             var teller = new Teller(catalog);
             teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, 10.0);

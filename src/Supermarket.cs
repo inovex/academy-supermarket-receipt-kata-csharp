@@ -8,7 +8,7 @@ namespace Supermarket
             var apple = new Product("apples", ProductUnit.Kilo);
             var toothbrush = new Product("toothbrush", ProductUnit.Each);
 
-            ISupermarketCatalog catalog = null;
+            ISupermarketCatalog? catalog = null;
             // TODO: catalog needs to be initialized
 
             var teller = new Teller(catalog);
